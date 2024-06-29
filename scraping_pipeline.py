@@ -7,8 +7,7 @@ table_names = ["resultat_tour_2", "stats_tour_2", "resultat_tour_1", "stats_tour
 # Generate the list of French departments
 dept_numbers = [str(i).zfill(3) for i in range(1, 97)]
 
-# TODO: remove debug
-for dept in dept_numbers[:1]:  # Iterate over departments
+for dept in dept_numbers:  # Iterate over departments
     circ_links = get_links_to_circonscriptions(dept)
 
     for circ_number, circ_link in enumerate(
