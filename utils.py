@@ -27,13 +27,15 @@ def html_table_to_csv(html_table, csv_filepath):
         writer.writerows(rows)
 
 
-def get_links_from_csv(csv_path: str) -> list[str]:
+def get_links_from_csv(csv_path: str) -> list[list]:
 
     communes_links = []
     with open(csv_path, "r") as csv_file:
         csv_reader = csv.reader(csv_file)
         next(csv_reader)  # Skip header
-        for row in csv_reader:  # Get the seventh column only
-            communes_links.append(row[7])
+        for row in csv_reader:
+            communes_links.append(
+                [row[4], row[7]]
+            )  # Retrieve link and official geographic code
 
     return communes_links
