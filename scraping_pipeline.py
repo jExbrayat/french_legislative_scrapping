@@ -12,8 +12,10 @@ for id, link in communes_links:
             result_table_path=f"scraped_data/results_tables/{id}.csv",
             stats_table_path=f"scraped_data/stats_tables/{id}.csv",
         )
+        print(f"{id} scraped successfully")
         logs[id] = "Data scraped successfully"
     except:
+        print(f"{id} scraping failed")
         logs[id] = "Scraping failed"
 
 with open("logs.json", "w") as logs_file:
