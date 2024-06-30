@@ -4,9 +4,6 @@ import json
 
 communes_links = get_links_from_csv("communes_links.csv")
 
-# TODO: remove debugging
-communes_links = communes_links[:10]
-
 logs = {}  # Init logs dictionary
 for id, link in communes_links:
     try:
