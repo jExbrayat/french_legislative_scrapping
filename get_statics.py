@@ -68,3 +68,10 @@ def scrap_write_commune_results(commune_link: str) -> None:
     # Transform html tables to csv and write on disk
     html_table_to_csv(find_tables[0], "table1.csv")
     html_table_to_csv(find_tables[1], "table2.csv")
+
+
+def get_commune_name_from_soup(soup: BeautifulSoup) -> str:
+
+    commune_name = soup.find("h4").get_text()
+
+    return commune_name
