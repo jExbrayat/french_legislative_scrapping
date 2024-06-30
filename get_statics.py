@@ -54,7 +54,9 @@ def get_tables_from_circ(circ_link: str) -> BeautifulSoup:
     return find_tables
 
 
-def scrap_write_commune_results(commune_link: str) -> None:
+def scrap_write_commune_results(
+    commune_link: str, result_table_path: str, stats_table_path: str
+) -> None:
     # Get source code of webpage
     request_response = requests.get(commune_link)
     static = request_response.text
@@ -66,8 +68,8 @@ def scrap_write_commune_results(commune_link: str) -> None:
     find_tables = static_soup.find_all("table")
 
     # Transform html tables to csv and write on disk
-    html_table_to_csv(find_tables[0], "table1.csv")
-    html_table_to_csv(find_tables[1], "table2.csv")
+    html_table_to_csv(find_tables[0], result_table_path)
+    html_table_to_csv(find_tables[1], stats_table_path)
 
 
 def get_commune_name_from_soup(soup: BeautifulSoup) -> str:
