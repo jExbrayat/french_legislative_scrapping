@@ -1,8 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
+from utils import html_table_to_csv
 
 
-def get_links_to_circonscriptions(dept_number: str) -> list[str]:
+def _get_links_to_circonscriptions(dept_number: str) -> list[str]:
+    """Deprecated
+
+    Args:
+        dept_number (str): _description_
+
+    Returns:
+        list[str]: _description_
+    """
 
     source_uri = "https://mobile.interieur.gouv.fr/fr/Elections/Les-resultats/Legislatives/elecresult__legislatives-2022/(path)/legislatives-2022/"
     get_dept = requests.get(f"{source_uri}/{dept_number}/index.html")  # Get document
@@ -27,6 +36,14 @@ def get_links_to_circonscriptions(dept_number: str) -> list[str]:
 
 
 def get_tables_from_circ(circ_link: str) -> BeautifulSoup:
+    """Deprecated
+
+    Args:
+        circ_link (str): _description_
+
+    Returns:
+        BeautifulSoup: _description_
+    """
 
     request_response = requests.get(circ_link)
     circ_table_static = request_response.text
@@ -35,3 +52,19 @@ def get_tables_from_circ(circ_link: str) -> BeautifulSoup:
     find_tables = circ_table_soup.find_all("table")
 
     return find_tables
+
+
+def scrap_write_commune_results(commune_link: str) -> None:
+    # Get source code of webpage
+    request_response = requests.get(commune_link)
+    static = request_response.text
+
+    # Parse html with beautiful soup
+    static_soup = BeautifulSoup(static, "html.parser")
+
+    # Extract tables
+    find_tables = static_soup.find_all("table")
+
+    # Transform html tables to csv and write on disk
+    html_table_to_csv(find_tables[0], "table1.csv")
+    html_table_to_csv(find_tables[1], "table2.csv")
