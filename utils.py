@@ -1,4 +1,3 @@
-import bs4
 import csv
 
 
@@ -26,3 +25,14 @@ def html_table_to_csv(html_table, csv_filepath):
         writer = csv.writer(f)
         writer.writerow(headers)
         writer.writerows(rows)
+
+
+def get_links_from_csv(csv_path: str) -> list[str]:
+
+    communes_links = []
+    with open(csv_path, "r") as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for row in csv_reader:
+            communes_links.append(row[7])
+
+    return communes_links
