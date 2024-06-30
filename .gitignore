@@ -1,2 +1,2 @@
-*.csv
+scraped_data/*.csv
 *.pyc
