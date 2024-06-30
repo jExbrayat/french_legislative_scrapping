@@ -32,7 +32,8 @@ def get_links_from_csv(csv_path: str) -> list[str]:
     communes_links = []
     with open(csv_path, "r") as csv_file:
         csv_reader = csv.reader(csv_file)
-        for row in csv_reader:
+        next(csv_reader)  # Skip header
+        for row in csv_reader:  # Get the seventh column only
             communes_links.append(row[7])
 
     return communes_links
