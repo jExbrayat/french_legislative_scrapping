@@ -1,25 +1,14 @@
-from get_statics import get_links_to_circonscriptions, get_tables_from_circ
-from utils import html_table_to_csv
-import os
+from get_statics import scrap_write_commune_results
+from utils import get_links_from_csv
 
-table_names = ["resultat_tour_2", "stats_tour_2", "resultat_tour_1", "stats_tour_1"]
+communes_links = get_links_from_csv("communes_links.csv")
 
-# Generate the list of French departments
-dept_numbers = [str(i).zfill(3) for i in range(1, 97)]
+# TODO: remove debugging
+communes_links = communes_links[:10]
 
-for dept in dept_numbers:  # Iterate over departments
-    circ_links = get_links_to_circonscriptions(dept)
-
-    for circ_number, circ_link in enumerate(
-        circ_links
-    ):  # Iterate over circonscriptions
-        tables = get_tables_from_circ(circ_link)
-
-        for table, table_name in zip(tables, table_names):
-
-            # Write files
-            # Create directory
-            save_folder = f"scraped_data/{dept}/circonscription_{circ_number}/"
-            os.makedirs(save_folder, exist_ok=True)
-
-            html_table_to_csv(table, csv_filepath=f"{save_folder}/{table_name}.csv")
+for id, link in communes_links:
+    scrap_write_commune_results(
+        commune_link=link,
+        result_table_path=f"scraped_data/results_tables/{id}.csv",
+        stats_table_path=f"scraped_data/stats_tables/{id}.csv",
+    )
