@@ -21,7 +21,7 @@ def html_table_to_csv(html_table, csv_filepath):
         rows.append(row)
 
     # Write to CSV
-    with open(csv_filepath, "w", newline="", encoding="utf-8") as f:
+    with open(csv_filepath, "w", newline="", encoding="ISO-8859-1") as f:
         writer = csv.writer(f)
         writer.writerow(headers)
         writer.writerows(rows)
