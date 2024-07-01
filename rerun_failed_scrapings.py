@@ -20,4 +20,6 @@ with open("communes_links.csv") as csv_file:
             )  # Retrieve link and official geographic code
 
 
-scrap_and_write(failed_links, logs_path="logs_01-07-15h30.json")
+scrap_and_write(
+    failed_links, save_folder="./scraped_data", logs_path="logs_01-07-15h30.json"
+)
